@@ -47,9 +47,6 @@ if vnos:
             {"role": "assistant", "content": zavrnitev}
         )
 
-        with st.chat_message("assistant"):
-            st.markdown(zavrnitev)
-
     else:
         try:
             odgovor = client.chat.completions.create(
@@ -59,10 +56,9 @@ if vnos:
 
             ai_text = odgovor.choices[0].message.content
 
-            with st.chat_message("assistant"):
-                st.markdown(ai_text)
-
-            st.session_state.messages.append({"role": "assistant", "content": ai_text})
+            st.session_state.messages.append(
+                {"role": "assistant", "content": ai_text}
+            )
 
             if len(st.session_state.messages) > MAX_MESSAGES:
                 st.session_state.messages = st.session_state.messages[-MAX_MESSAGES:]
