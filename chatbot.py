@@ -3,6 +3,11 @@ from groq import Groq
 import streamlit as st
 from datetime import datetime
 
+st.set_page_config(
+    page_title="Puff Shop Slovenija – Chatbot",
+    layout="wide"
+)
+
 client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
 MAX_MESSAGES = 10
@@ -12,7 +17,6 @@ if "messages" not in st.session_state:
         {"role": "system", "content": "Si namenski klepetalnik spletne strani Puff Shop Slovenija. Odgovarjaš izključno v slovenščini. DOVOLJENA so samo vprašanja, ki so neposredno povezana s spletno stranjo Puff Shop Slovenija, njenimi izdelki, ponudbo, uporabo izdelkov in osnovnimi informacijami o trgovini. Če uporabnik postavi vprašanje, ki NI povezano s Puff Shop Slovenija (npr. vreme, matematika, splošna vprašanja, osebne teme), moraš vljudno odgovoriti, da za to nimaš informacij in da lahko pomagaš samo glede Puff Shop Slovenija."}
     ]
 
-st.set_page_config(page_title="Puff Shop Slovenija – Chatbot", layout="centered")
 st.title("💨 Puff Shop Slovenija – klepetalnik")
 st.write("Vprašaj me karkoli o naših izdelkih.")
 
