@@ -9,7 +9,7 @@ MAX_MESSAGES = 10
 
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "system", "content": "Si prijazen asistent za Puff Shop Slovenija. Odgovarjaš izključno v slovenščini in samo na vprašanja, povezana z izdelki Puff Shop Slovenija."}
+        {"role": "system", "content": "Si namenski klepetalnik spletne strani Puff Shop Slovenija. Odgovarjaš izključno v slovenščini. DOVOLJENA so samo vprašanja, ki so neposredno povezana s spletno stranjo Puff Shop Slovenija, njenimi izdelki, ponudbo, uporabo izdelkov in osnovnimi informacijami o trgovini. Če uporabnik postavi vprašanje, ki NI povezano s Puff Shop Slovenija (npr. vreme, matematika, splošna vprašanja, osebne teme), moraš vljudno odgovoriti, da za to nimaš informacij in da lahko pomagaš samo glede Puff Shop Slovenija."}
     ]
 
 st.set_page_config(page_title="Puff Shop Slovenija – Chatbot", layout="centered")
@@ -25,6 +25,27 @@ vnos = st.chat_input("Vpiši vprašanje")
 
 if vnos:
     st.session_state.messages.append({"role": "user", "content": vnos})
+
+    dovoljene_besede = [
+        "puff", "puff shop", "vape", "okus", "okusi", "nikotin",
+        "izdelek", "izdelki", "ponudba", "trgovina", "slovenija",
+        "uporaba", "kako uporabljati", "cena", "kupi", "naročilo"
+    ]
+
+    if not any(beseda in vnos.lower() for beseda in dovoljene_besede):
+        zavrnitev = (
+            "Oprosti, na to vprašanje ne morem odgovoriti. "
+            "Pomagam lahko samo z informacijami o spletni strani "
+            "Puff Shop Slovenija in njenih izdelkih."
+        )
+
+        with st.chat_message("assistant"):
+            st.markdown(zavrnitev)
+
+        st.session_state.messages.append(
+            {"role": "assistant", "content": zavrnitev}
+        )
+        st.stop()
 
     try:
         odgovor = client.chat.completions.create(
