@@ -65,3 +65,5 @@ if vnos:
 
         except Exception as e:
             st.error(f"Prišlo je do napake: {e}")
+
+    st.rerun()
