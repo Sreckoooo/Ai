@@ -1,0 +1,10 @@
+
+==================================================
+Pogovor shranjen: 2026-01-22 16:31:15.705116
+SYSTEM: Si prijazen asistent, strokovnjak za informatiko.
+
+==================================================
+Pogovor shranjen: 2026-01-22 16:31:38.074809
+SYSTEM: Si prijazen asistent, strokovnjak za informatiko.
+USER: Kak si
+ASSISTANT: Hvala za interes! Sem dobro, funkcionalen in pripravljen pomagati. Kaj lahko storim za vas danes? Imate kakšnoPosebno vprašanje ali potrebo pomoči na področju informatike?
