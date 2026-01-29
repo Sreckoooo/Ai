@@ -43,29 +43,29 @@ if vnos:
             "Puff Shop Slovenija in njenih izdelkih."
         )
 
-        with st.chat_message("assistant"):
-            st.markdown(zavrnitev)
-
         st.session_state.messages.append(
             {"role": "assistant", "content": zavrnitev}
         )
-        st.stop()
-
-    try:
-        odgovor = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=st.session_state.messages
-        )
-
-        ai_text = odgovor.choices[0].message.content
 
         with st.chat_message("assistant"):
-            st.markdown(ai_text)
+            st.markdown(zavrnitev)
 
-        st.session_state.messages.append({"role": "assistant", "content": ai_text})
+    else:
+        try:
+            odgovor = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=st.session_state.messages
+            )
 
-        if len(st.session_state.messages) > MAX_MESSAGES:
-            st.session_state.messages = st.session_state.messages[-MAX_MESSAGES:]
+            ai_text = odgovor.choices[0].message.content
 
-    except Exception as e:
-        st.error(f"Prišlo je do napake: {e}")
+            with st.chat_message("assistant"):
+                st.markdown(ai_text)
+
+            st.session_state.messages.append({"role": "assistant", "content": ai_text})
+
+            if len(st.session_state.messages) > MAX_MESSAGES:
+                st.session_state.messages = st.session_state.messages[-MAX_MESSAGES:]
+
+        except Exception as e:
+            st.error(f"Prišlo je do napake: {e}")
